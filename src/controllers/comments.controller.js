@@ -1,16 +1,13 @@
-const express = require("express");
-const { readDb, writeDb } = require("../utils/file.until");
-const router = express.Router();
+const { readDb, writeDb } = require("../../utils/db.util");
 
 const RESOURCE = "comments";
-
-router.get("/", async (req, res) => {
+const index = async (req, res) => {
     const comments = await readDb(RESOURCE);
 
     res.json({ status: "success", data: comments });
-});
+};
 
-router.get("/:id", async (req, res) => {
+const show = async (req, res) => {
     const comments = await readDb(RESOURCE);
 
     const comment = comments.find((comment) => comment.id === +req.params.id);
@@ -24,9 +21,9 @@ router.get("/:id", async (req, res) => {
     }
 
     res.json({ status: "success", data: comment });
-});
+};
 
-router.post("/", async (req, res) => {
+const store = async (req, res) => {
     const comments = await readDb(RESOURCE);
 
     const newComment = {
@@ -39,9 +36,9 @@ router.post("/", async (req, res) => {
     await writeDb(RESOURCE, comments);
 
     res.json({ status: "success", data: newComment });
-});
+};
 
-router.put("/:id", async (req, res) => {
+const update = async (req, res) => {
     const comments = await readDb(RESOURCE);
     const comment = comments.find((comment) => comment.id === +req.params.id);
 
@@ -58,9 +55,9 @@ router.put("/:id", async (req, res) => {
     await writeDb(RESOURCE, comments);
 
     res.json({ status: "success", data: comment });
-});
+};
 
-router.delete("/:id", async (req, res) => {
+const destroy = async (req, res) => {
     const comments = await readDb(RESOURCE);
     const index = comments.findIndex(
         (comment) => comment.id === +req.params.id
@@ -79,6 +76,12 @@ router.delete("/:id", async (req, res) => {
     await writeDb(RESOURCE, comments);
 
     res.status(204).send();
-});
+};
 
-module.exports = router;
+module.exports = {
+    index,
+    show,
+    store,
+    update,
+    destroy,
+};
