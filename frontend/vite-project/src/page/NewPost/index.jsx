@@ -14,7 +14,7 @@ function NewPost() {
             return alert("hãy nhập vào gì đó để thêm mới bài viết");
         }
 
-        const res = await fetch("http://127.0.0.1:3000/posts", {
+        const res = await fetch("http://127.0.0.1:3000/api/v1/posts", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -23,14 +23,14 @@ function NewPost() {
         });
 
         const data = await res.json();
-        if (data.status === "success") {
+        if (data.success) {
             toast.success("Thêm bài viết thành công!", {
                 autoClose: 2000,
             });
 
             setTimeout(() => {
                 navigate("/");
-            }, 2000);
+            }, 2100);
         } else {
             toast.success("Thêm bài viết không thành công!", {
                 autoClose: 2000,

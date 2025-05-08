@@ -16,7 +16,7 @@ function EditPost() {
             return alert("hãy nhập vào gì đó để thêm mới bài viết");
         }
 
-        const res = await fetch(`http://127.0.0.1:3000/posts/${id}`, {
+        const res = await fetch(`http://127.0.0.1:3000/api/v1/posts/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -25,14 +25,15 @@ function EditPost() {
         });
 
         const data = await res.json();
-        if (data.status === "success") {
+
+        if (data.success) {
             toast.success("Sửa bài viết thành công!", {
                 autoClose: 2000,
             });
 
             setTimeout(() => {
                 navigate("/");
-            }, 2000);
+            }, 2100);
         } else {
             toast.success("Sửa bài viết không thành công!", {
                 autoClose: 2000,

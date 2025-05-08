@@ -39,7 +39,8 @@ input[type="text"] {
     font-size: 14px;
 }
 
-a {
+a,
+button {
     padding: 8px 12px;
     border: none;
     background: #2c7be5;
@@ -50,7 +51,8 @@ a {
     text-decoration: none;
 }
 
-a:hover {
+a:hover,
+button:hover {
     background: #1a5dcc;
 }
 
@@ -81,4 +83,20 @@ a:hover {
     margin-top: 10px;
     color: #555;
     font-style: italic;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.comments {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comments + .comments {
+    margin-top: 20px;
 }

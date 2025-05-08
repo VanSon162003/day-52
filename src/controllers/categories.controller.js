@@ -1,4 +1,4 @@
-const { readDb, writeDb } = require("../../utils/db.util");
+const { readDb, writeDb } = require("../utils/db.util");
 const RESOURCE = "category";
 
 const index = async (req, res) => {

@@ -1,79 +1,60 @@
-const { readDb, writeDb } = require("../../utils/db.util");
-const RESOURCE = "posts";
+const commentsService = require("@/service/comments.service");
+const postsService = require("@/service/posts.service");
+const response = require("@/utils/response");
+const throwError = require("@/utils/throwError");
 
 const index = async (req, res) => {
-    const posts = await readDb(RESOURCE);
-    res.status(200).json({ status: "success", data: posts });
+    const posts = await postsService.getAllPost();
+    response.success(res, 200, posts, "");
+};
+
+const getCommentByPostId = async (req, res) => {
+    const comments = await commentsService.getCommentByPostId(req.params.id);
+    response.success(res, 200, comments);
+};
+
+const createCommentByPostId = async (req, res) => {
+    const comment = await commentsService.createCommentByPostId(
+        req.params.id,
+        req.body
+    );
+    response.success(res, 200, comment);
 };
 
 const show = async (req, res) => {
-    const posts = await readDb(RESOURCE);
-    const post = posts.find((post) => post.id === +req.params.id);
+    const post = await postsService.getPostById(req.params.id);
 
-    if (!post) {
-        return res.status(404).json({
-            status: "error",
-            message: "resource not found",
-        });
-    }
+    if (!post) throwError(404, "Resource not found");
 
-    res.status(200).json({ status: "success", data: post });
+    response.success(res, 200, post);
 };
 
 const store = async (req, res) => {
-    const posts = await readDb(RESOURCE);
+    const newPost = await postsService.createPost(req.body);
 
-    const newPost = {
-        id: (posts[posts.length - 1]?.id ?? 0) + 1,
-        name: req.body.name,
-    };
-
-    const updatedPosts = [...posts, newPost];
-    await writeDb(RESOURCE, updatedPosts);
-
-    res.status(201).json({ status: "success", data: newPost });
+    response.success(res, 201, newPost);
 };
 
 const update = async (req, res) => {
-    const posts = await readDb(RESOURCE);
-    const post = posts.find((post) => post.id === +req.params.id);
+    const updatedPost = await postsService.updatePost(req.params.id, req.body);
 
-    if (!post) {
-        return res.status(404).json({
-            status: "error",
-            message: "resource not found",
-        });
-    }
+    if (!updatedPost) throwError(404, "Resource not found");
 
-    const updatedPost = { ...post, name: req.body.name };
-    const updatedPosts = posts.map((p) =>
-        p.id === +req.params.id ? updatedPost : p
-    );
-
-    await writeDb(RESOURCE, updatedPosts);
-
-    res.status(200).json({ status: "success", data: updatedPost });
+    response.success(res, 200, updatedPost);
 };
 
 const destroy = async (req, res) => {
-    const posts = await readDb(RESOURCE);
-    const exists = posts.find((post) => post.id === +req.params.id);
+    const exists = await postsService.deletePost(req.params.id);
 
-    if (!exists) {
-        return res.status(404).json({
-            status: "error",
-            message: "resource not found",
-        });
-    }
+    if (!exists) throwError(404, "Resource not found");
 
-    const updatedPosts = posts.filter((post) => post.id !== +req.params.id);
-    await writeDb(RESOURCE, updatedPosts);
-
-    res.status(204).send();
+    response.success(res, 204);
 };
 
 module.exports = {
     index,
+    getCommentByPostId,
+    createCommentByPostId,
     show,
     store,
     update,

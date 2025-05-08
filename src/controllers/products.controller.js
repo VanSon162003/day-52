@@ -1,4 +1,4 @@
-const { readDb, writeDb } = require("../../utils/db.util");
+const { readDb, writeDb } = require("../utils/db.util");
 const RESOURCE = "products";
 
 const index = async (req, res) => {

@@ -1,136 +1,38 @@
 {
+  "posts": [
+    {
+      "id": 2,
+      "name": "sssaaaa"
+    },
+    {
+      "id": 3,
+      "name": "sa"
+    }
+  ],
   "comments": [
     {
       "id": 1,
-      "posts_id": 7,
-      "comment": "test 2"
-    },
-    {
-      "id": 3,
-      "posts_id": 10,
-      "comment": "test 2"
-    },
-    {
-      "id": 4,
-      "posts_id": 12,
-      "comment": "test 2"
-    }
-  ],
-  "posts": [
-    {
-      "id": 7,
-      "name": "b"
-    },
-    {
-      "id": 8,
-      "name": "c"
-    },
-    {
-      "id": 9,
-      "name": "aa"
-    },
-    {
-      "id": 10,
-      "name": "aaaccc"
-    },
-    {
-      "id": 11,
-      "name": "â"
-    },
-    {
-      "id": 12,
-      "name": "test 2"
-    },
-    {
-      "id": 13,
-      "name": "test 2"
-    },
-    {
-      "id": 15
-    },
-    {
-      "id": 16
-    },
-    {
-      "id": 17
-    },
-    {
-      "id": 18
-    },
-    {
-      "id": 19,
-      "name": "hihi"
-    },
-    {
-      "id": 20,
-      "name": ""
-    },
-    {
-      "id": 21,
-      "name": ""
-    },
-    {
-      "id": 22,
-      "name": ""
-    }
-  ],
-  "category": [
-    {
-      "id": 1,
-      "name": "aa"
+      "comment": "a",
+      "name": "son",
+      "postId": "1"
     },
     {
       "id": 2,
-      "name": "vvvv",
-      "desc": "aaa"
+      "comment": "aa",
+      "name": "sss",
+      "postId": "2"
     },
     {
       "id": 3,
+      "comment": "jjjj",
       "name": "aa",
-      "desc": "a"
-    }
-  ],
-  "products": [
-    {
-      "id": 1,
-      "name": "vvvv",
-      "desc": "aaa"
-    },
-    {
-      "id": 3,
-      "name": "aa",
-      "desc": "fff",
-      "price": "a"
+      "postId": "2"
     },
     {
       "id": 4,
+      "comment": "aádasd",
       "name": "aa",
-      "desc": "fff",
-      "price": "a"
-    },
-    {
-      "id": 5,
-      "name": "aa",
-      "desc": "fff",
-      "price": "a"
-    },
-    {
-      "id": 6,
-      "name": "aa",
-      "desc": "fff",
-      "price": "2"
-    }
-  ],
-  "todos": [
-    {
-      "id": 1,
-      "title": "hehe",
-      "isCompleted": "true"
-    },
-    {
-      "id": 2,
-      "title": "ssss",
-      "isCompleted": "true"
+      "postId": "3"
     }
   ]
 }
