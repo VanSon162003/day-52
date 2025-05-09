@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function Post() {
@@ -22,18 +22,14 @@ function Post() {
         (async () => {
             try {
                 const res = await fetch(
-                    `http://127.0.0.1:3000/api/v1/comments/${id}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
+                    `http://127.0.0.1:3000/api/v1/comments/${id}`
                 );
-
                 const data = await res.json();
 
-                setCommentId(data.data);
+                setCommentId({
+                    name: data.data?.name ?? "",
+                    comment: data.data?.comment ?? "",
+                });
             } catch (error) {
                 console.log(error);
             }
@@ -44,15 +40,8 @@ function Post() {
         (async () => {
             try {
                 const res = await fetch(
-                    `http://127.0.0.1:3000/api/v1/posts/${params.id}/comments`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
+                    `http://127.0.0.1:3000/api/v1/posts/${params.id}/comments`
                 );
-
                 const data = await res.json();
                 setComments(data.data);
             } catch (error) {
@@ -76,37 +65,25 @@ function Post() {
     }, [params.id]);
 
     const handleChangValue = (e) => {
-        const nameValue = e.target.closest(".name")?.value;
-        const commentValue = e.target.closest(".comment")?.value;
-
+        const { name, value } = e.target;
         setCommentId((prev) => ({
             ...prev,
-            name: nameValue,
-            comment: commentValue,
+            [name]: value,
         }));
     };
 
     const handleDelete = async (comment) => {
         try {
-            const res = await fetch(
-                `http://127.0.0.1:3000/api/v1/comments/${comment.id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-
-            toast.success("Xoá thành công!", {
-                autoClose: 2000,
+            await fetch(`http://127.0.0.1:3000/api/v1/comments/${comment.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
             });
 
-            setComments(() => {
-                return comments.filter((c) => {
-                    return c.id !== comment.id;
-                });
-            });
+            toast.success("Xoá thành công!", { autoClose: 2000 });
+
+            setComments(comments.filter((c) => c.id !== comment.id));
         } catch (error) {
             console.log(error);
         }
@@ -131,13 +108,13 @@ function Post() {
 
             if (result.success) {
                 toast.success("Sửa thành công!", { autoClose: 2000 });
-                setEditForm(!editForm);
+                setEditForm(false);
 
-                setComments(() => {
-                    return comments.map((comment) =>
+                setComments((prev) =>
+                    prev.map((comment) =>
                         comment.id === result.data.id ? result.data : comment
-                    );
-                });
+                    )
+                );
             }
         } catch (error) {
             console.log(error);
@@ -150,7 +127,7 @@ function Post() {
         const data = Object.fromEntries(formData);
 
         if (!data.name || !data.comment)
-            return alert("hãy nhập đầy đủ các trường để đi tiếp");
+            return alert("Hãy nhập đầy đủ các trường để đi tiếp");
 
         try {
             const res = await fetch(
@@ -165,9 +142,9 @@ function Post() {
             );
 
             const result = await res.json();
-            setComments((prev) => [...prev, result.data]);
 
             if (result.success) {
+                setComments((prev) => [...prev, result.data]);
                 toast.success("Thêm thành công!", { autoClose: 2000 });
             }
         } catch (error) {
@@ -179,12 +156,7 @@ function Post() {
         <>
             <div>
                 <h1>{post.name}</h1>
-                <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Magni delectus repellat cum itaque eius fugit ipsa! Qui,
-                    repellendus voluptatum odit mollitia illo delectus alias
-                    optio nemo explicabo ea? Aperiam, beatae!
-                </p>
+                <p>Đây là nội dung bài viết...</p>
             </div>
 
             <div className="comments">
@@ -192,104 +164,77 @@ function Post() {
                     Comments ({comments.length})
                 </span>
 
-                <form className="form" action="" onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="name"
-                        id=""
-                        placeholder="Nhập tên"
-                    />
+                <form className="form" onSubmit={handleSubmit}>
+                    <input type="text" name="name" placeholder="Nhập tên" />
                     <input
                         type="text"
                         name="comment"
-                        id=""
                         placeholder="Nhập comment..."
                     />
-
                     <button>Bình luận</button>
                 </form>
 
                 <hr style={{ width: "100vw" }} />
 
                 <div className="commentForm">
-                    {comments.length > 0 &&
-                        comments.map((comment) => {
-                            return (
-                                <div className="commentGroup" key={comment.id}>
-                                    <div className="user">
-                                        <img
-                                            style={{
-                                                width: "60px",
-                                                height: "60px",
-                                                borderRadius: "50%",
-                                            }}
-                                            src="https://a1.vnecdn.net/s61769534880479660226.png?w=60&h=60&s=KWc6wvqJHKSXlMtxC2HqkQ"
-                                            alt=""
-                                        />
-                                        <span className="userName">
-                                            {comment.name}
-                                        </span>
+                    {comments.map((comment) => (
+                        <div className="commentGroup" key={comment.id}>
+                            <div className="user">
+                                <img
+                                    style={{
+                                        width: "60px",
+                                        height: "60px",
+                                        borderRadius: "50%",
+                                    }}
+                                    src="https://a1.vnecdn.net/s61769534880479660226.png?w=60&h=60&s=KWc6wvqJHKSXlMtxC2HqkQ"
+                                    alt=""
+                                />
+                                <span className="userName">{comment.name}</span>
 
-                                        <div className="content">
-                                            <p> {comment.comment}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="action">
-                                        <button
-                                            data-id={`${comment.id}`}
-                                            onClick={(e) => {
-                                                const id = +e.target.dataset.id;
-
-                                                setId(id);
-
-                                                setEditForm(!editForm);
-                                            }}
-                                        >
-                                            sửa
-                                        </button>
-                                        <button
-                                            onClick={() =>
-                                                handleDelete(comment)
-                                            }
-                                        >
-                                            xoá
-                                        </button>
-                                    </div>
-
-                                    {editForm && (
-                                        <form
-                                            className="form"
-                                            action=""
-                                            onSubmit={editSubmit}
-                                        >
-                                            <input
-                                                value={commentId?.name}
-                                                type="text"
-                                                name="name"
-                                                className="name"
-                                                id=""
-                                                placeholder="Nhập tên"
-                                                onChange={handleChangValue}
-                                            />
-                                            <input
-                                                value={commentId?.comment}
-                                                type="text"
-                                                className="comment"
-                                                name="comment"
-                                                id=""
-                                                onChange={handleChangValue}
-                                                placeholder="Nhập comment..."
-                                            />
-
-                                            <button>Sửa</button>
-                                        </form>
-                                    )}
-
-                                    <hr />
+                                <div className="content">
+                                    <p>{comment.comment}</p>
                                 </div>
-                            );
-                        })}
+                            </div>
+
+                            <div className="action">
+                                <button
+                                    onClick={() => {
+                                        setId(comment.id);
+                                        setEditForm(!editForm);
+                                    }}
+                                >
+                                    sửa
+                                </button>
+                                <button onClick={() => handleDelete(comment)}>
+                                    xoá
+                                </button>
+                            </div>
+
+                            {editForm && comment.id === id && (
+                                <form className="form" onSubmit={editSubmit}>
+                                    <input
+                                        value={commentId.name ?? ""}
+                                        type="text"
+                                        name="name"
+                                        className="name"
+                                        placeholder="Nhập tên"
+                                        onChange={handleChangValue}
+                                    />
+                                    <input
+                                        value={commentId.comment ?? ""}
+                                        type="text"
+                                        name="comment"
+                                        className="comment"
+                                        placeholder="Nhập comment..."
+                                        onChange={handleChangValue}
+                                    />
+                                    <button>Sửa</button>
+                                </form>
+                            )}
+
+                            <hr />
+                        </div>
+                    ))}
                 </div>
             </div>
         </>
