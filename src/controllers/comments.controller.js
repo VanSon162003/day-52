@@ -9,6 +9,14 @@ const index = async (req, res) => {
     response.success(res, 200, comments);
 };
 
+const show = async (req, res) => {
+    const comment = await commentsService.getCommentById(req.params.id);
+
+    if (!comment) throwError(404, "Resource not found");
+
+    response.success(res, 200, comment);
+};
+
 const update = async (req, res) => {
     const updatedComment = await commentsService.updateComment(
         req.params.id,
@@ -32,6 +40,7 @@ const destroy = async (req, res) => {
 
 module.exports = {
     index,
+    show,
     update,
     destroy,
 };

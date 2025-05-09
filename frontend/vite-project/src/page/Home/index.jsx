@@ -6,8 +6,6 @@ import { toast, ToastContainer } from "react-toastify";
 
 function Home() {
     const [posts, setPosts] = useState([]);
-    const [comments, setComments] = useState([]);
-    const [showComments, setshowComments] = useState(false);
 
     useEffect(() => {
         fetch("http://127.0.0.1:3000/api/v1/posts")
@@ -66,59 +64,15 @@ function Home() {
             <ul id="post-list" className="post-list">
                 {posts.map((post, i) => (
                     <li data-id={post.id} key={i}>
-                        <span>{post.name}</span>
-                        <Link
-                            onClick={async (e) => {
-                                e.preventDefault();
-                                setshowComments(true);
-
-                                try {
-                                    const res = await fetch(
-                                        `http://127.0.0.1:3000/api/v1/posts/${post.id}/comments`,
-                                        {
-                                            method: "GET",
-                                            headers: {
-                                                "Content-Type":
-                                                    "application/json",
-                                            },
-                                        }
-                                    );
-
-                                    const data = await res.json();
-                                    setComments(data.data);
-                                } catch (error) {
-                                    console.log(error);
-                                }
-                            }}
-                        >
-                            hiển thị comments
-                        </Link>
-
-                        <Link to={`/create-comment/${post.id}`}>
-                            Thêm bình luận
+                        <Link to={`/post/${post.id}`} className="link">
+                            {" "}
+                            <span>{post.name}</span>
                         </Link>
 
                         <Link to={`/edit-post/${post.id}`}>sưa</Link>
                         <Link onClick={handleDelete}>xoá</Link>
                     </li>
                 ))}
-            </ul>
-
-            <ul>
-                {showComments &&
-                    (comments.length === 0 ? (
-                        <li>không có bình luận nào</li>
-                    ) : (
-                        comments.map((comment) => (
-                            <li className="comments" key={comment.id}>
-                                <span>tên: {comment.name}</span> |{" "}
-                                <span>comment: {comment.comment}</span>
-                                <Link to={`/edit-comment/${comment.id}`}>
-                                    sửa comment
-                                </Link>
-                            </li>
-                        ))
-                    ))}
             </ul>
         </div>
     );

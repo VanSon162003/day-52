@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get("/", commentsController.index);
 
+router.get("/:id", commentsController.show);
+
 router.put("/:id", updateCommentValidator, commentsController.update);
 
 router.delete("/:id", commentsController.destroy);
