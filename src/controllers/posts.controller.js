@@ -8,6 +8,13 @@ const index = async (req, res) => {
     response.success(res, 200, posts, "");
 };
 
+const getList = async (req, res) => {
+    const page = req.query.page;
+
+    const posts = await postsService.getAll(page);
+    response.success(res, 200, posts);
+};
+
 const getCommentByPostId = async (req, res) => {
     const comments = await commentsService.getCommentByPostId(req.params.id);
     response.success(res, 200, comments);
@@ -53,6 +60,7 @@ const destroy = async (req, res) => {
 
 module.exports = {
     index,
+    getList,
     getCommentByPostId,
     createCommentByPostId,
     show,

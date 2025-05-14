@@ -7,7 +7,9 @@ const {
 const { createCommentValidator } = require("@/validator/comments.validator");
 const router = express.Router();
 
-router.get("/", postsController.index);
+// router.get("/", postsController.index);
+router.get("/", postsController.getList);
+
 router.get("/:id/comments", postsController.getCommentByPostId);
 
 router.get("/:id", postsController.show);

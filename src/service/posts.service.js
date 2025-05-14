@@ -1,9 +1,32 @@
+const throwError = require("@/utils/throwError");
 const { readDb, writeDb } = require("../utils/db.util");
+const postsModel = require("@/models/posts.model");
 const RESOURCE = "posts";
 
 const getAllPost = async () => {
     const posts = await readDb(RESOURCE);
     return posts;
+};
+
+const getAll = async (page = 1) => {
+    const count = await postsModel.count();
+
+    const posts = await postsModel.findAll(page);
+
+    const lastPage = Math.ceil(count / 10);
+
+    const result = {
+        items: posts,
+
+        pagination: {
+            current_page: page,
+            per_page: 10,
+            total: count,
+            last_page: lastPage,
+        },
+    };
+
+    return result;
 };
 
 const getPostById = async (id) => {
@@ -61,6 +84,7 @@ const deletePost = async (id) => {
 
 module.exports = {
     getAllPost,
+    getAll,
     getPostById,
     createPost,
     updatePost,
