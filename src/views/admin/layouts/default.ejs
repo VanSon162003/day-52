@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Analytics | Admin Dashboard</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="/assets/css/common.css" />
+        <link rel="stylesheet" href="/assets/css/analytics.css" />
+        <link rel="stylesheet" href="/assets/css/categories.css" />
+        <link rel="stylesheet" href="/assets/css/topics.css" />
+        <link rel="stylesheet" href="/assets/css/settings.css" />
+        <link rel="stylesheet" href="/assets/css/accountSettings.css" />
+        <link rel="stylesheet" href="/assets/css/productDetail.css" />
+        <link rel="stylesheet" href="/assets/css/productCreate.css" />
+        <link rel="stylesheet" href="/assets/css/postsDetail.css" />
+        <link rel="stylesheet" href="/assets/css/postCreate.css" />
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <div class="app-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-logo">
+                    <h1>Admin Dashboard</h1>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <% for (const item of sideBarItems) { %>
+                    <a
+                        href="<%= item.path %>"
+                        class="menu-item <%= item.path === path ? 'active' : '' %>"
+                    >
+                        <i class="fas <%= item.icon %>"></i>
+                        <%= item.title %>
+                    </a>
+                    <% } %>
+                </nav>
+
+                <div class="user-profile" id="userProfileDropdown">
+                    <div class="avatar">JD</div>
+                    <div class="user-info">
+                        <p>John Doe</p>
+                        <small>Administrator</small>
+                        <i class="fas fa-chevron-down dropdown-icon"></i>
+                        <div class="user-dropdown">
+                            <a
+                                href="/admin/account-settings"
+                                class="dropdown-item"
+                            >
+                                <i class="fas fa-user-cog"></i> Account Settings
+                            </a>
+                            <a href="/admin/login" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="content-wrapper"><%- body %></main>
+        </div>
+
+        <script src="/assets/js/common.js"></script>
+        <script src="/assets/js/dashboard.js"></script>
+        <script src="/assets/js/analytics.js"></script>
+        <script src="/assets/js/categories.js"></script>
+        <script src="/assets/js/products.js"></script>
+        <script src="/assets/js/topics.js"></script>
+        <script src="/assets/js/posts.js"></script>
+        <script src="/assets/js/comments.js"></script>
+        <script src="/assets/js/users.js"></script>
+        <script src="/assets/js/settings.js"></script>
+        <script src="/assets/js/accountSettings.js"></script>
+        <script src="/assets/js/productDetail.js"></script>
+        <script src="/assets/js/productEdit.js"></script>
+        <script src="/assets/js/productCreate.js"></script>
+        <script src="/assets/js/postDetail.js"></script>
+        <script src="/assets/js/postCreate.js"></script>
+        <script src="/assets/js/commentDetail.js"></script>
+    </body>
+</html>

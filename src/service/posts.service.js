@@ -29,6 +29,12 @@ const getAll = async (page = 1) => {
     return result;
 };
 
+const getOne = async (id) => {
+    const post = await postsModel.findById(id);
+
+    return post;
+};
+
 const getPostById = async (id) => {
     const posts = await readDb(RESOURCE);
     const post = posts.find((item) => item.id === +id);
@@ -85,6 +91,7 @@ const deletePost = async (id) => {
 module.exports = {
     getAllPost,
     getAll,
+    getOne,
     getPostById,
     createPost,
     updatePost,
