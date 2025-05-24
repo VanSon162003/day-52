@@ -3,6 +3,7 @@ exports.index = async (req, res) => {
 };
 
 exports.show = async (req, res) => {
+    console.log(req.params.id);
     res.render("admin/products/show");
 };
 
