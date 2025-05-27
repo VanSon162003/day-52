@@ -12,7 +12,7 @@
 </div>
 
 <!-- Create User Form -->
-<form id="createUserForm" class="card">
+<form id="createUserForm" method="POST" action="/admin/users" class="card">
     <div class="card-header">
         <h3>User Information</h3>
     </div>
@@ -22,39 +22,48 @@
             <div class="form-group">
                 <label for="userName">Full Name*</label>
                 <input
+                    value="<%= old?.name  %>"
                     type="text"
                     id="userName"
-                    name="userName"
+                    name="name"
                     class="form-control"
-                    required
                     data-validate="name"
                 />
-                <span class="error-text" id="userNameError"></span>
+                <%if ( errors?.name) { console.log(errors); %>
+                <span class="error-text" id="userNameError">
+                    <%= errors.name %>
+                </span>
+                <% }%>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="userEmail">Email*</label>
                     <input
+                        value="<%= old?.email  %>"
                         type="email"
                         id="userEmail"
-                        name="userEmail"
+                        name="email"
                         class="form-control"
-                        required
                     />
-                    <span class="error-text" id="userEmailError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors.email %>
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <label for="userPhone">Phone</label>
                     <input
+                        value="<%= old?.phone  %>"
                         type="tel"
                         id="userPhone"
-                        name="userPhone"
+                        name="phone"
                         class="form-control"
                         data-validate="phone"
                     />
-                    <span class="error-text" id="userPhoneError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors.phone %>
+                    </span>
                 </div>
             </div>
 
@@ -62,11 +71,16 @@
                 <label for="userAddress">Address</label>
                 <textarea
                     id="userAddress"
-                    name="userAddress"
+                    name="address"
                     class="form-control"
                     rows="2"
-                ></textarea>
-                <span class="error-text" id="userAddressError"></span>
+                >
+ "<%= old?.address  %>"</textarea
+                >
+                <span class="error-text" id="userNameError">
+                    <%if(errors.address !== "") { %> <%= errors.address %> <% }
+                    %>
+                </span>
             </div>
         </div>
 
@@ -75,47 +89,47 @@
             <div class="form-group">
                 <label for="userUsername">Username*</label>
                 <input
+                    value="<%= old?.username  %>"
                     type="text"
                     id="userUsername"
-                    name="userUsername"
+                    name="username"
                     class="form-control"
-                    required
                     data-validate="username"
                 />
-                <span class="error-text" id="userUsernameError"></span>
+                <span class="error-text" id="userNameError">
+                    <%= errors.username %>
+                </span>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="userRole">Role*</label>
-                    <select
-                        id="userRole"
-                        name="userRole"
-                        class="form-control"
-                        required
-                    >
-                        <option value="">Select Role</option>
+                    <select id="userRole" name="role" class="form-control">
                         <option value="admin">Administrator</option>
                         <option value="editor">Editor</option>
                         <option value="viewer">Viewer</option>
                     </select>
-                    <span class="error-text" id="userRoleError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors.role %>
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <label for="userStatus">Status*</label>
                     <select
                         id="userStatus"
-                        name="userStatus"
+                        name="status"
                         class="form-control"
-                        required
+                        selected
                     >
                         <option value="">Select Status</option>
                         <option value="active" selected>Active</option>
                         <option value="inactive">Inactive</option>
                         <option value="pending">Pending</option>
                     </select>
-                    <span class="error-text" id="userStatusError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors.status %>
+                    </span>
                 </div>
             </div>
         </div>
@@ -126,29 +140,29 @@
                 <div class="form-group">
                     <label for="userPassword">Password*</label>
                     <input
-                        type="password"
+                        value="<%= old?.password  %>"
                         id="userPassword"
-                        name="userPassword"
+                        name="password"
                         class="form-control"
-                        required
                         data-validate="password"
                     />
-                    <span class="error-text" id="userPasswordError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors.password %>
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <label for="userConfirmPassword">Confirm Password*</label>
                     <input
+                        value="<%= old?.confirm_password  %>"
                         type="password"
                         id="userConfirmPassword"
-                        name="userConfirmPassword"
+                        name="confirm_password"
                         class="form-control"
-                        required
                     />
-                    <span
-                        class="error-text"
-                        id="userConfirmPasswordError"
-                    ></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors.confirm_password %>
+                    </span>
                 </div>
             </div>
             <p
@@ -160,11 +174,12 @@
             </p>
         </div>
 
-        <div class="form-section">
+        <!-- <div class="form-section">
             <h3>Notification Settings</h3>
             <div class="form-group">
                 <div class="checkbox-group">
                     <input
+                        value="avvv@gmail.com"
                         type="checkbox"
                         id="emailNotifications"
                         name="emailNotifications"
@@ -176,6 +191,7 @@
                 </div>
                 <div class="checkbox-group">
                     <input
+                        value="avvv@gmail.com"
                         type="checkbox"
                         id="adminNotifications"
                         name="adminNotifications"
@@ -186,7 +202,7 @@
                     >
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="form-buttons">
             <button type="button" class="btn btn-secondary" id="cancelBtn">

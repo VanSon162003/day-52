@@ -22,7 +22,12 @@
 </div>
 
 <!-- Edit User Form -->
-<form id="editUserForm" class="card">
+<form
+    id="editUserForm"
+    class="card"
+    method="post"
+    action="/admin/users/<%= id %>?_method=PUT"
+>
     <div class="card-header">
         <h3>User Information</h3>
     </div>
@@ -32,39 +37,46 @@
             <div class="form-group">
                 <label for="userName">Full Name*</label>
                 <input
+                    value="<%= old?.name ?? user?.name  %>"
                     type="text"
                     id="userName"
-                    name="userName"
+                    name="name"
                     class="form-control"
-                    required
                     data-validate="name"
                 />
-                <span class="error-text" id="userNameError"></span>
+                <span class="error-text" id="userNameError">
+                    <%= errors?.name %>
+                </span>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="userEmail">Email*</label>
                     <input
+                        value="<%= old?.email ?? user?.email  %>"
                         type="email"
                         id="userEmail"
-                        name="userEmail"
+                        name="email"
                         class="form-control"
-                        required
                     />
-                    <span class="error-text" id="userEmailError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors?.email %>
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <label for="userPhone">Phone</label>
                     <input
+                        value="<%= old?.phone ??  user?.phone  %>"
                         type="tel"
                         id="userPhone"
-                        name="userPhone"
+                        name="phone"
                         class="form-control"
                         data-validate="phone"
                     />
-                    <span class="error-text" id="userPhoneError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors?.phone %>
+                    </span>
                 </div>
             </div>
 
@@ -72,11 +84,15 @@
                 <label for="userAddress">Address</label>
                 <textarea
                     id="userAddress"
-                    name="userAddress"
+                    name="address"
                     class="form-control"
                     rows="2"
-                ></textarea>
-                <span class="error-text" id="userAddressError"></span>
+                >
+"<%= old?.name ?? user?.address  %>"</textarea
+                >
+                <span class="error-text" id="userNameError">
+                    <%= errors?.address %>
+                </span>
             </div>
         </div>
 
@@ -85,56 +101,54 @@
             <div class="form-group">
                 <label for="userUsername">Username*</label>
                 <input
+                    value="<%= old?.username ?? user?.username  %>"
                     type="text"
                     id="userUsername"
-                    name="userUsername"
+                    name="username"
                     class="form-control"
-                    required
                     data-validate="username"
                 />
-                <span class="error-text" id="userUsernameError"></span>
+                <span class="error-text" id="userNameError">
+                    <%= errors?.username %>
+                </span>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
                     <label for="userRole">Role*</label>
-                    <select
-                        id="userRole"
-                        name="userRole"
-                        class="form-control"
-                        required
-                    >
+                    <select id="userRole" name="role" class="form-control">
                         <option value="">Select Role</option>
                         <option value="admin">Administrator</option>
                         <option value="editor">Editor</option>
                         <option value="viewer">Viewer</option>
                     </select>
-                    <span class="error-text" id="userRoleError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors?.role %>
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <label for="userStatus">Status*</label>
-                    <select
-                        id="userStatus"
-                        name="userStatus"
-                        class="form-control"
-                        required
-                    >
+                    <select id="userStatus" name="status" class="form-control">
                         <option value="">Select Status</option>
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
                         <option value="pending">Pending</option>
                     </select>
-                    <span class="error-text" id="userStatusError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors?.status %>
+                    </span>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="dateCreated">Date Created</label>
                 <input
+                    value="<%= old?.created_at ?? user?.created_at  %>"
                     type="text"
                     id="dateCreated"
                     class="form-control"
+                    name="created_at"
                     readonly
                     disabled
                 />
@@ -143,8 +157,10 @@
             <div class="form-group">
                 <label for="lastLogin">Last Login</label>
                 <input
+                    value="<%= old?.logined_at ?? user?.logined_at  %>"
                     type="text"
                     id="lastLogin"
+                    name="logined_at"
                     class="form-control"
                     readonly
                     disabled
@@ -161,13 +177,16 @@
                 <div class="form-group">
                     <label for="userPassword">New Password</label>
                     <input
+                        value="<%= old?.password ?? user?.password  %>"
                         type="password"
                         id="userPassword"
-                        name="userPassword"
+                        name="password"
                         class="form-control"
                         data-validate="password"
                     />
-                    <span class="error-text" id="userPasswordError"></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors?.password %>
+                    </span>
                 </div>
 
                 <div class="form-group">
@@ -175,15 +194,15 @@
                         >Confirm New Password</label
                     >
                     <input
+                        value="<%= old?.password ?? user?.password  %>"
                         type="password"
                         id="userConfirmPassword"
-                        name="userConfirmPassword"
+                        name="confirm_password"
                         class="form-control"
                     />
-                    <span
-                        class="error-text"
-                        id="userConfirmPasswordError"
-                    ></span>
+                    <span class="error-text" id="userNameError">
+                        <%= errors?.confirm_password %>
+                    </span>
                 </div>
             </div>
             <p class="form-help-text">
@@ -192,7 +211,7 @@
             </p>
         </div>
 
-        <div class="form-section">
+        <!-- <div class="form-section">
             <h3>Email Notifications</h3>
             <div class="form-group">
                 <div class="checkbox-group">
@@ -217,7 +236,7 @@
                     >
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="form-buttons">
             <button type="button" class="btn btn-secondary" id="cancelBtn">
@@ -229,3 +248,58 @@
         </div>
     </div>
 </form>
+
+<div class="modal" id="confirmDeleteModal">
+    <div class="modal-content">
+        <h3 class="modal-title">Confirm Delete</h3>
+        <div class="modal-body">
+            Are you sure you want to delete user "<span
+                id="deleteItemName"
+            ></span
+            >"? This action cannot be undone.
+        </div>
+        <div class="modal-footer">
+            <button
+                type="button"
+                id="cancelDelete"
+                class="btn btn-secondary"
+                data-cancel
+            >
+                Cancel
+            </button>
+            <button
+                type="button"
+                id="confirmDelete"
+                class="btn btn-danger"
+                data-confirm
+            >
+                Delete
+            </button>
+        </div>
+    </div>
+</div>
+
+<form action="" class="form-remove"></form>
+
+<script>
+    const button = document.querySelector("#deleteUserBtn");
+    console.log(button);
+
+    button.addEventListener("click", async function (e) {
+        // Set item name in modal
+
+        // Show confirmation dialog
+        const result = await showConfirmDialog("confirmDeleteModal", {
+            title: "Confirm Delete",
+            message: `Are you sure you want to delete "<%= user?.name %>"? This action cannot be undone.`,
+        });
+
+        if (result) {
+            const form = document.querySelector(".form-remove");
+
+            form.action = `/admin/users/<%= id %>/delete?_method=DELETE`;
+            form.method = "post";
+            form.submit();
+        }
+    });
+</script>

@@ -17,12 +17,18 @@ app.use(morgan("combined"));
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
+app.use(express.urlencoded());
 
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
 app.set("layout", "admin/layouts/default");
 // app.set("layout", "admin/layouts/auth");
+
+const methodOverride = require("method-override");
+// Hỗ trợ từ query hoặc input hidden
+
+app.use(methodOverride("_method"));
 
 // cấu hình router public
 app.use(express.static("public"));

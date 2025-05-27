@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const paginationLinks = document.querySelectorAll(".pagination li a");
     paginationLinks.forEach((link) => {
         link.addEventListener("click", function (e) {
-            e.preventDefault();
+            // e.preventDefault();
 
             // Remove active class from all links
             paginationLinks.forEach((l) =>
@@ -84,33 +84,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Setup delete confirmation
     const deleteButtons = document.querySelectorAll(".delete-item");
-    deleteButtons.forEach((button) => {
-        button.addEventListener("click", async function (e) {
-            e.preventDefault();
 
-            const itemId = this.getAttribute("data-id");
-            const itemName = this.getAttribute("data-name");
+    deleteButtons.forEach((button, i) => {
+        button.addEventListener("click", async function (e) {
+            // e.preventDefault();
+            const titles = document.querySelectorAll(".item-title");
+            const id = this.getAttribute("data-id");
 
             // Set item name in modal
-            document.getElementById("deleteItemName").textContent = itemName;
 
             // Show confirmation dialog
             const result = await showConfirmDialog("confirmDeleteModal", {
                 title: "Confirm Delete",
-                message: `Are you sure you want to delete "${itemName}"? This action cannot be undone.`,
+                message: `Are you sure you want to delete "${titles[i].innerText}"? This action cannot be undone.`,
             });
 
             if (result) {
-                // Delete the user (in a real application, this would likely be an API call)
-                console.log(`Deleting user with ID: ${itemId}`);
+                const form = document.querySelector(".form-remove");
 
-                // Remove user from table
-                const itemRow = document.querySelector(
-                    `tr[data-id="${itemId}"]`
-                );
-                if (itemRow) {
-                    itemRow.remove();
-                }
+                form.action = `/admin/users/${id}/delete?_method=DELETE`;
+                form.method = "post";
+                form.submit();
             }
         });
     });
