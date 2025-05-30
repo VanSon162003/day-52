@@ -3,5 +3,6 @@ const registerController = require("@/controllers/admin/auth/showRegisterForm.co
 const router = express.Router();
 
 router.get("/register", registerController.showRegisterForm);
+router.post("/register", registerController.register);
 
 module.exports = router;

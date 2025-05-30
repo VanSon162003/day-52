@@ -3,5 +3,6 @@ const loginController = require("@/controllers/admin/auth/showLoginForm.controll
 const router = express.Router();
 
 router.get("/login", loginController.showLoginForm);
+router.post("/login", loginController.login);
 
 module.exports = router;

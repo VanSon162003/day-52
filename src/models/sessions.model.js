@@ -1,33 +1,19 @@
 const db = require("@/configs/db");
 const { buildInsertQuery, buildUpdateQuery } = require("@/utils/queryBuilder");
 
-exports.findAll = async () => {
-    const [users] = await db.query("select * from users order by id desc");
-    return users;
-};
-
 exports.findById = async (id) => {
-    const [users] = await db.query(
-        `select * from users where id = ? or username = ?`,
-        [id, id]
+    const [session] = await db.query(
+        `select * from sessions where id = ? and expires_at > now() `,
+        [id]
     );
 
-    return users[0];
-};
-
-exports.findByEmailAndPassword = async (email, password) => {
-    const [users] = await db.query(
-        `select * from users where email = ? and password = ?`,
-        [email, password]
-    );
-
-    return users[0];
+    return session[0];
 };
 
 exports.create = async (data) => {
     const { columns, placeholders, values } = buildInsertQuery(data);
 
-    const query = `INSERT INTO users (${columns}) VALUES (${placeholders});`;
+    const query = `INSERT INTO sessions (${columns}) VALUES (${placeholders});`;
     const [{ insertId }] = await db.query(query, values);
 
     return {
@@ -41,7 +27,7 @@ exports.update = async (id, data) => {
 
     values.push(id);
 
-    const query = `UPDATE users SET ${setClause} WHERE id = ?;`;
+    const query = `UPDATE sessions SET ${setClause} WHERE id = ?;`;
     await db.query(query, values);
 
     return {
@@ -52,7 +38,7 @@ exports.update = async (id, data) => {
 
 exports.remove = async (id) => {
     const [{ affectedRows }] = await db.query(
-        `delete from users where id = ?`,
+        `delete from sessions where id = ?`,
         [id]
     );
     return affectedRows > 0;
