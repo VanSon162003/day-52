@@ -15,10 +15,7 @@ const usersRouter = require("./users.routes");
 
 const settingsRouter = require("./settings.routes");
 const accountSettingsRouter = require("./accountSettings.routes");
-const loginRouter = require("./login.routes");
-const registerRouter = require("./register.routes");
-const forgotPasswordRouter = require("./showForgotForm.routes");
-const resetPasswordRouter = require("./resetPassword.routes");
+const authRouter = require("./auth.routes");
 
 router.use("/", dashboardRouter);
 router.use("/", postsRouter);
@@ -30,9 +27,6 @@ router.use("/", commentsRouter);
 router.use("/", usersRouter);
 router.use("/", settingsRouter);
 router.use("/", accountSettingsRouter);
-router.use("/", loginRouter);
-router.use("/", registerRouter);
-router.use("/", forgotPasswordRouter);
-router.use("/", resetPasswordRouter);
+router.use("/", authRouter);
 
 module.exports = router;

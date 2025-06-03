@@ -1,5 +1,6 @@
 const sessionsService = require("@/service/admin/sessions.service");
 const { randomUUID } = require("node:crypto");
+const { type } = require("node:os");
 
 async function session(req, res, next) {
     let _sid = req.cookies.sid;
@@ -24,20 +25,23 @@ async function session(req, res, next) {
         });
     }
 
-    const sessionData = JSON.parse(session.data ?? null) ?? {};
+    req.session = JSON.parse(session.data ?? null) ?? {};
 
-    req.session = {
-        get(key) {
-            return sessionData[key] ?? null;
-        },
+    res.setFlash = (type, message) => {
+        const data = {
+            type,
+            message,
+        };
 
-        set(key, value) {
-            (sessionData[key] = value),
-                sessionsService.update(_sid, {
-                    data: JSON.stringify(sessionData),
-                });
-        },
+        if (!req.session.flash) req.session.flash = [];
+        req.session.flash = [...req.session.flash, data];
     };
+
+    res.on("finish", () => {
+        sessionsService.update(_sid, {
+            data: JSON.stringify(req.session),
+        });
+    });
 
     next();
 }

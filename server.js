@@ -15,6 +15,7 @@ const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
 const session = require("@/middleWare/admin/session");
 const shareLocals = require("@/middleWare/admin/shareLocals");
+const checkAuth = require("@/middleWare/admin/checkAuth");
 const app = express();
 const port = 3000;
 
@@ -41,7 +42,8 @@ app.use(express.static("public"));
 
 // router tổng
 
-app.use("/admin", session, shareLocals, handleSidebar, adminRouter);
+app.use("/admin", session, shareLocals, checkAuth, handleSidebar, adminRouter);
+
 app.use("/api/v1", router);
 
 // xử lý tài nguyên không chính xác

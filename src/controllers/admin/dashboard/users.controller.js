@@ -31,6 +31,11 @@ exports.store = async (req, res) => {
 
     await usersService.create(body);
 
+    res.setFlash("success", "Tạo mới thành công!");
+    res.setFlash("info", "Tạo mới thành công!");
+    res.setFlash("error", "Tạo mới thành công!");
+    res.setFlash("warning", "Tạo mới thành công!");
+
     res.redirect("/admin/users");
 };
 
@@ -40,6 +45,8 @@ exports.update = async (req, res) => {
 
     await usersService.update(id, body);
 
+    res.setFlash("success", "cập nhật thành công!");
+
     res.redirect("/admin/users");
 };
 
@@ -47,6 +54,7 @@ exports.softDelete = async (req, res) => {
     const id = req.params.id;
 
     await usersService.remove(id);
+    res.setFlash("success", "Xoá thành công!");
 
     res.redirect("/admin/users");
 };

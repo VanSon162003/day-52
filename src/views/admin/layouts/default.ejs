@@ -7,7 +7,9 @@
             <%- include("../partials/Sidebar") %>
 
             <!-- Main Content -->
-            <main class="content-wrapper"><%- body %></main>
+            <main class="content-wrapper">
+                <%- include("../partials/flash-message") %> <%- body %>
+            </main>
         </div>
         <%- include("../partials/script") %>
     </body>
