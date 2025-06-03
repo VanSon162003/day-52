@@ -1,0 +1,184 @@
+<div class="content-header">
+    <h1>Edit Comment</h1>
+    <a href="/admin/comments" class="btn btn-secondary" id="backButton">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+</div>
+
+<!-- Success Message -->
+<div id="successMessage" class="message message-success" style="display: none">
+    <i class="fas fa-check-circle"></i>
+    <span data-message-text>Comment has been updated successfully.</span>
+</div>
+
+<!-- Edit Form for Comments -->
+<form id="commentForm" class="card">
+    <div class="card-header">
+        <h3>Comment Information</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-section">
+            <h3>Basic Information</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="commentAuthor">Author*</label>
+                    <input
+                        type="text"
+                        id="commentAuthor"
+                        name="commentAuthor"
+                        class="form-control"
+                        required
+                        value="Sarah Johnson"
+                    />
+                    <span class="error-text" id="commentAuthorError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="commentEmail">Email*</label>
+                    <input
+                        type="email"
+                        id="commentEmail"
+                        name="commentEmail"
+                        class="form-control"
+                        required
+                        value="sarah.johnson@example.com"
+                    />
+                    <span class="error-text" id="commentEmailError"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="commentStatus">Status*</label>
+                    <select
+                        id="commentStatus"
+                        name="commentStatus"
+                        class="form-control"
+                        required
+                    >
+                        <option value="">Select Status</option>
+                        <option value="approved" selected>Approved</option>
+                        <option value="pending">Pending</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <span class="error-text" id="commentStatusError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="commentDate">Date*</label>
+                    <input
+                        type="datetime-local"
+                        id="commentDate"
+                        name="commentDate"
+                        class="form-control"
+                        required
+                        value="2023-07-16T14:30"
+                    />
+                    <span class="error-text" id="commentDateError"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="commentPost">Related Post*</label>
+                <select
+                    id="commentPost"
+                    name="commentPost"
+                    class="form-control"
+                    required
+                >
+                    <option value="">Select Post</option>
+                    <option value="1" selected>
+                        10 Tips for Better Productivity
+                    </option>
+                    <option value="2">The Future of AI in Business</option>
+                    <option value="3">
+                        5 Morning Habits of Successful People
+                    </option>
+                    <option value="4">
+                        How to Build a Successful E-commerce Business
+                    </option>
+                    <option value="5">
+                        The Complete Guide to Digital Marketing
+                    </option>
+                    <option value="6">The Rise of Remote Work</option>
+                </select>
+                <span class="error-text" id="commentPostError"></span>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Comment Content</h3>
+            <div class="form-group">
+                <label for="commentContent">Content*</label>
+                <textarea
+                    id="commentContent"
+                    name="commentContent"
+                    class="form-control"
+                    rows="6"
+                    required
+                >
+Great article! These tips have really helped me improve my productivity.</textarea
+                >
+                <span class="error-text" id="commentContentError"></span>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Additional Information</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="commentIp">IP Address</label>
+                    <input
+                        type="text"
+                        id="commentIp"
+                        name="commentIp"
+                        class="form-control"
+                        readonly
+                        value="192.168.1.100"
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="commentUserAgent">User Agent</label>
+                    <input
+                        type="text"
+                        id="commentUserAgent"
+                        name="commentUserAgent"
+                        class="form-control"
+                        readonly
+                        value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Moderation</h3>
+            <div class="form-group">
+                <label for="commentModNotes">Moderation Notes</label>
+                <textarea
+                    id="commentModNotes"
+                    name="commentModNotes"
+                    class="form-control"
+                    rows="3"
+                >
+Legitimate comment, approved immediately.</textarea
+                >
+                <span class="error-text" id="commentModNotesError"></span>
+                <small class="form-text text-muted"
+                    >These notes are only visible to administrators and will not
+                    be shown publicly.</small
+                >
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <button type="button" class="btn btn-secondary" id="cancelBtn">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Save Changes
+            </button>
+        </div>
+    </div>
+</form>
