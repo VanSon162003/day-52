@@ -20,6 +20,17 @@ class UsersService {
         return user;
     }
 
+    async getByEmail(email) {
+        const user = await usersModel.findByEmail(email);
+
+        return user;
+    }
+
+    async getByIdAndPassword(id, password) {
+        const user = await usersModel.getByIdAndPassword(id, password);
+        return user;
+    }
+
     async create(data) {
         const user = await usersModel.create(data);
         return user;

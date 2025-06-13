@@ -1,4 +1,6 @@
 const usersService = require("@/service/users.service");
+const loadEmail = require("@/utils/loadEmail");
+const queue = require("@/utils/queue");
 
 exports.index = async (req, res) => {
     const users = await usersService.getAll();

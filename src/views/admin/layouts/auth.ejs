@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login | Admin Dashboard</title>
+        <link rel="stylesheet" href="/assets/css/main.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <style>
+            .wrap {
+                position: relative;
+            }
+
+            .wrapFlash {
+                position: absolute;
+                top: 15px;
+                right: 0;
+                translate: -50% 0;
+                /* margin-bottom: -12px; */
+            }
+
+            .reset-password-container,
+            .forgot-password-container {
+                width: 400px;
+                background-color: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+                padding: 40px;
+            }
+
+            .register-container {
+                margin-top: 100px;
+            }
+
+            .form-message {
+                padding: 10px 15px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                display: none;
+            }
+
+            .form-message.success {
+                background-color: rgba(76, 175, 80, 0.1);
+                color: #4caf50;
+                border: 1px solid rgba(76, 175, 80, 0.2);
+            }
+
+            .form-message.error {
+                background-color: rgba(244, 67, 54, 0.1);
+                color: #f44336;
+                border: 1px solid rgba(244, 67, 54, 0.2);
+            }
+
+            .error-text {
+                color: #f44336;
+                font-size: 12px;
+                margin-top: 5px;
+                display: none;
+            }
+
+            .password-requirements {
+                margin-top: 5px;
+                padding: 10px;
+                background-color: #f8f9fa;
+                border-radius: 8px;
+                font-size: 12px;
+            }
+
+            .password-requirements h4 {
+                margin-top: 0;
+                margin-bottom: 5px;
+                font-size: 13px;
+            }
+
+            .back-to-login {
+                display: inline-flex;
+                align-items: center;
+                color: #3a86ff;
+                text-decoration: none;
+                margin-bottom: 20px;
+                font-size: 14px;
+            }
+
+            .back-to-login i {
+                margin-right: 6px;
+            }
+
+            .back-to-login:hover {
+                text-decoration: underline;
+            }
+
+            .form-footer {
+                margin-top: 20px;
+                text-align: center;
+                font-size: 14px;
+                color: #666;
+            }
+
+            .form-control.error {
+                border-color: #f44336;
+            }
+
+            .requirement {
+                display: flex;
+                align-items: center;
+                margin-bottom: 3px;
+                color: #666;
+            }
+
+            .requirement i {
+                margin-right: 5px;
+                font-size: 10px;
+            }
+
+            .requirement.valid {
+                color: #4caf50;
+            }
+
+            .requirement.valid i {
+                color: #4caf50;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="wrapFlash">
+                <%- include("../partials/flash-message") %>
+            </div>
+            <%- body %>
+        </div>
+
+        <!-- <script src="/assets/js/validation.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                if (typeof initFormValidation === "function") {
+                    initFormValidation("loginForm");
+                }
+            });
+        </script> -->
+    </body>
+</html>

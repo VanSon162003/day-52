@@ -90,13 +90,18 @@
         <h3>Change Password</h3>
     </div>
     <div class="card-body">
-        <form id="passwordForm">
+        <form
+            id="passwordForm"
+            method="post"
+            action="/admin/change-password/<%= auth.id %>"
+        >
             <div class="form-section">
                 <div class="form-group">
                     <label for="currentPassword">Current Password*</label>
                     <input
                         type="password"
                         id="currentPassword"
+                        name="password"
                         class="form-control"
                         required
                     />
@@ -107,6 +112,7 @@
                     <input
                         type="password"
                         id="newPassword"
+                        name="newPassword"
                         class="form-control"
                         required
                     />
@@ -117,6 +123,7 @@
                     <input
                         type="password"
                         id="confirmPassword"
+                        name="confirmPassword"
                         class="form-control"
                         required
                     />
