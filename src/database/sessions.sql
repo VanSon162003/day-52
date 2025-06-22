@@ -1,0 +1,2 @@
+INSERT INTO `sessions`(`id`, `data`, `expires_at`, `created_at`, `updated_at`) VALUES ('329f93aa-28ec-4e4c-a350-a47a28c843c8', '', '2025-06-06 17:50:59', '2025-05-30 17:50:59', '2025-05-30 18:45:17');
+INSERT INTO `sessions`(`id`, `data`, `expires_at`, `created_at`, `updated_at`) VALUES ('34eea0ac-2ce0-46fe-a635-ec11b90ec5d5', '{\"userId\":22}', '2025-06-06 18:45:06', '2025-05-30 18:45:06', '2025-05-31 00:06:38');

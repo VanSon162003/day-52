@@ -2,7 +2,7 @@ const db = require("@/configs/db");
 const { buildInsertQuery, buildUpdateQuery } = require("@/utils/queryBuilder");
 
 exports.findAll = async () => {
-    const [users] = await db.query("select * from users");
+    const [users] = await db.query("select * from users order by id desc");
     return users;
 };
 
@@ -10,6 +10,15 @@ exports.findById = async (id) => {
     const [users] = await db.query(
         `select * from users where id = ? or username = ?`,
         [id, id]
+    );
+
+    return users[0];
+};
+
+exports.findByEmailAndPassword = async (email, password) => {
+    const [users] = await db.query(
+        `select * from users where email = ? and password = ?`,
+        [email, password]
     );
 
     return users[0];

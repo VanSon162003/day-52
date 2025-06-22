@@ -1,0 +1,1 @@
+INSERT INTO `users`(`id`, `course_id`, `name`, `brithday`, `email`, `username`, `avatar`, `phone`, `gender`, `password`, `rel_status`, `bio`, `address`, `blocked_at`, `created_at`, `updated_at`, `role`, `status`, `logined_at`) VALUES (2, 0, 'hihih', NULL, 'a', 'jjj', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);

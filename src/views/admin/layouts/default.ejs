@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partials/head") %>
+    <body>
+        <div class="app-container">
+            <!-- Sidebar -->
+            <%- include("../partials/Sidebar") %>
+
+            <!-- Main Content -->
+            <main class="content-wrapper">
+                <%- include("../partials/flash-message") %> <%- body %>
+            </main>
+        </div>
+        <%- include("../partials/script") %>
+    </body>
+</html>

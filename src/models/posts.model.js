@@ -15,3 +15,9 @@ exports.count = async () => {
 
     return total[0].total;
 };
+
+exports.findById = async (id) => {
+    const [post] = await db.query(`select * from posts where id = ?`, [id]);
+
+    return post[0];
+};
